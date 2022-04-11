@@ -1,39 +1,25 @@
-import React, { Component } from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import React from 'react'
+import { useGlobalContext } from './context'
 
-class LambdaDemo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { loading: false, msg: null }
-  }
+import SetupForm from './SetupForm'
+import Loading from './Loading'
+import Modal from './Modal'
 
-  handleClick = api => e => {
-    e.preventDefault()
+function App() {
+  const {
+    waiting,
+    loading,
+  } = useGlobalContext()
 
-    this.setState({ loading: true })
-    fetch("/.netlify/functions/" + api)
-      .then(response => response.json())
-      .then(json => this.setState({ loading: false, msg: json.msg }))
-  }
-
-  render() {
-    const { loading, msg } = this.state
-
-    return (
-      <p>
-        <button onClick={this.handleClick("hello")}>{loading ? "Loading...!" : "Saar"}</button>
-        <button onClick={this.handleClick("async-dadjoke")}>{loading ? "Loading..." : "Call Async Lambda"}</button>
-        <br />
-        <span>{msg}</span>
-      </p>
-    )
-  }
-}
-
-class App extends Component {
-  render() {
-    return (
+    if (waiting){
+      return <SetupForm/>
+    }
+    if (loading){
+      return <Loading/>
+    }
+    return <main>Monday Quiz</main>
+    
+    /*return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -44,7 +30,7 @@ class App extends Component {
         </header>
       </div>
     )
+    */
   }
-}
 
 export default App
