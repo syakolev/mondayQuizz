@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 
 const url = 'https://opentdb.com/api.php?amount=100'
 const AppContext = React.createContext()
@@ -71,8 +71,7 @@ const AppProvider = ({ children }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { amount, category, difficulty } = quiz
-
+    
     fetchQuestions(url)
   }
 
